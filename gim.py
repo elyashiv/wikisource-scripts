@@ -27,6 +27,9 @@ rev = {
 def toGStr(n):
     s = ""
     if n >= 100:
+        while n > 500:
+            s += 'ת'
+            n -= 400
         s += rev[n // 100 * 100]
         n = n % 100
     if n == 15:
