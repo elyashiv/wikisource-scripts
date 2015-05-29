@@ -38,11 +38,26 @@ def genLinks(pageName):
     data    = text[1::2]
     res = [start]
     for h,d in zip(headers, data):
+        s = h.split(' ')[-1]
+        if s.endswith(']]'): s = s[:-2]
         if not h.startswith('[['):
-            s = h.split(' ')[-1]
-            d = secbeg.format(s) + d.strip() + secend.format(s)
             h = link.format(pageName, s, h)
+        if not d.strip().startswith('<'):
+            d = secbeg.format(s) + d.strip() + secend.format(s)
         res += [h,d]
     text = '=='.join(res)
     page.text = text
     page.save(comment = 'הוספת קישורים לסעיפים, נעשה על ידי בוט')
+
+def getN(t):
+  l = t.split('\n')[0].split('|')[-1][:-2]
+  return int(l)
+
+def genAll(nameT, iterator):
+  site = pywikibot.getSite()
+  for i in iterator:
+    page = pywikibot.Page(site, nameT + gim.toGStr(i))
+    if page.exists():
+      n = getN(page.text)
+      genPages(nameT, i, n)
+      genLinks(nameT + gim.toGStr(i))
