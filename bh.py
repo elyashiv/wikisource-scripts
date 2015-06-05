@@ -10,11 +10,12 @@ def formatBH(elemL):
     txt = ''
     for i in elemL.itertext():
         txt += i
-    l = findall('\(.*?\).*?: ', txt)
+    txt = txt.strip()
+    l = findall('\(.*?\).*?:(?= \(.{,3}\)|$)', txt)
     ret = ''
     for i in l:
-        ret += sub(r'\((.*)\) (.*?)\. (.*): ',
-                   r'{{משע|בהט|\1|\2:}} \3.',
+        ret += sub(r'\((.*?)\) (.*?)\. (.*):',
+                   r'{{משע|בהט|\1|\2:}}{{ררר}} \3.',
                    i).replace("''",'"')
         ret += '\n\n'
         
@@ -25,6 +26,7 @@ def check(s):
     for i in s.itertext():
         tmp += i
     return tmp.strip().startswith('א')
+
 def getBH(page, startN = 1):
     """get the paragraphs of BH from page.
     The paragraphs will be seperated by a header.

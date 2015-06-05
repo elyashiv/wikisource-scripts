@@ -50,7 +50,7 @@ def genLinks(pageName):
     page.save(comment = 'הוספת קישורים לסעיפים, נעשה על ידי בוט')
 
 def getN(t):
-  l = t.split('\n')[0].split('|')[-1][:-2]
+  l = t.split('\n')[0].strip().split('|')[-1][:-2]
   return int(l)
 
 def genAll(nameT, iterator):
