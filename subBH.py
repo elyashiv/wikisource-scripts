@@ -10,8 +10,8 @@ def doIt(pname, i, override=False):
     t = page.text
     l = re.split(r, t)
     l.pop(0)
-    sub('באר היטב על אבן העזר {}',
-        '{{{{פרשן על שו"ע|באר היטב|אבן העזר|{}|{}|{}}}}}', i, l, override)
+    sub('באר היטב על חושן משפט {}',
+        '{{{{פרשן על שו"ע|באר היטב|חושן משפט|{}|{}|{}}}}}', i, l, override)
 
 def sub(nameTmp, hTmp, i, l, override=False):
     for b in l:
